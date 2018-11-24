@@ -183,10 +183,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 } else {
                     nextPageToken = "";
                 }
-                if (jsonObject.getJSONArray("results").length() == 0){
-                    Log.d("gmpJson", stringBuilder.toString());
-                    Log.d("gmpUrl", params[0]);
-                }
                 return jsonObject.getJSONArray("results");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -197,7 +193,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         @Override
         protected void onPostExecute(JSONArray jsonArray) {
             progressBar.setVisibility(View.GONE);
-            Log.d("jaSIZE", jsonArray.length() + "");
             requestCount++;
             try {
                 for (int i = 0; i < jsonArray.length(); i++) {
