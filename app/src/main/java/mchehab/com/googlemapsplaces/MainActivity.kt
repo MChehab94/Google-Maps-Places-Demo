@@ -15,10 +15,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.location.places.GeoDataClient
-import com.google.android.gms.location.places.PlaceDetectionClient
-import com.google.android.gms.location.places.Places
-import com.google.android.gms.location.places.ui.PlacePicker
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -43,10 +39,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, LocationResultList
     private lateinit var googleMap: GoogleMap
     private lateinit var locationHandler: LocationHandler
 
-    private lateinit var geoDataClient: GeoDataClient
-    private lateinit var placeDetectionClient: PlaceDetectionClient
-    private lateinit var googleApiClient: GoogleApiClient
-
     private val API_KEY = "YOUR_API_KEY_HERE"
     private val PLACES_API_REQUEST = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=$API_KEY"
 
@@ -57,28 +49,10 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, LocationResultList
 
     private lateinit var clusterManager: ClusterManager<MarkerClusterItem>
 
-    override fun onPause() {
-        super.onPause()
-        googleApiClient.disconnect()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        googleApiClient.connect()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        geoDataClient = Places.getGeoDataClient(this)
-        placeDetectionClient = Places.getPlaceDetectionClient(this)
-        googleApiClient = GoogleApiClient.Builder(this)
-                .addApi(Places.GEO_DATA_API)
-                .addApi(Places.PLACE_DETECTION_API)
-                .enableAutoManage(this, this)
-                .build()
-
+        setContentView(R.layout.activity_main)        
+            
         locationHandler = LocationHandler(this, this, ACTIVITY_REQUEST_CODE, PERMISSION_REQUEST_CODE)
         locationHandler.getUserLocation()
 
