@@ -154,10 +154,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void getLocation(Location location) {
         googleMap.setMyLocationEnabled(true);
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        LatLng ll = new LatLng(33.890719, 35.476755);
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ll, ZOOM_LEVEL));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, ZOOM_LEVEL));
         progressBar.setVisibility(View.VISIBLE);
-        new PlaceRequest().execute(PLACES_REQUEST + "&radius=500&location=33.890719,35.476755");
+        new PlaceRequest().execute(PLACES_REQUEST + "&radius=500&location=" + latLng.latitude + "," + latLng.longitude);
     }
 
     private class PlaceRequest extends AsyncTask<String, Integer, JSONArray> {
